@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import styles from "./styles";
 import NavigationBar from "../../components/navigationBar";
 import SpecialButton from "./components/buton";
-import { onButtonPress, onProcessImage } from "../../utils/imageFunctions";
+import { onButtonPress, onProcessImage, sendImageToPython } from "../../utils/imageFunctions";
 import FotografKaresi from "./components/fotoModal";
 
 export default function Tara({ navigation }) {
   const [response, setResponse] = useState(null);
   const [cropped, setCropped] = useState("");
   const [modal, setModal] = useState(true);
+  const [sendApi,setSendApi]=useState(false);
 
   const closeModal = () => {
     setModal(false);
@@ -18,11 +19,11 @@ export default function Tara({ navigation }) {
 
   const handleButtonPress = async (type) => {
     await onButtonPress(type, setResponse, setCropped, setModal, navigation);
-    console.log("Cropped uri:", cropped);
   };
 
   const handleProcessImage = () => {
-    onProcessImage(response, cropped, navigation);
+
+   sendImageToPython(response,setSendApi);
   };
   return (
     <View style={styles.container}>

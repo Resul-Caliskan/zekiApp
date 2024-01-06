@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 // import { Colors } from "../constants/colors";
 import Tara from "../screens/FotoScreen/tara";
 import Yazma from "../screens/KeyBoardScreen/yazma";
+import ProcessImageScreen from "../screens/ProcessImage/processImage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -92,6 +93,7 @@ export default function NavigationComponent() {
       >
         <Stack.Group>
           <Stack.Screen name="Tara" component={Tara} />
+          <Stack.Screen name="ProcessImage" component={ProcessImageScreen} />
           <Stack.Screen name="Yazma" component={Yazma} />
         </Stack.Group>
         {/* <Stack.Group>
