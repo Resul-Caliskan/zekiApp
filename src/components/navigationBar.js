@@ -1,11 +1,11 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import myColor from "../constants/colors";
 import width from "../constants/dimension";
 
 //state ilk camerada ise true değeri alacak keyboarda ise false
-const NavigationBar = ({ navigaiton, state }) => {
+const NavigationBar = ({ navigation, state }) => {
   const onPressHandlerTara = () => {
     navigation.navigate("Tara");
   };
@@ -13,18 +13,18 @@ const NavigationBar = ({ navigaiton, state }) => {
     navigation.navigate("Yazma");
   };
   const onPressHandlerMenu = () => {
-    navigaiton.navigate("Menu");
+    navigation.navigate("Menu");
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onPressHandlerMenu}>
+      <TouchableOpacity style={styles.menu} onPress={onPressHandlerMenu}>
         <Icon name="menu" size={30} color={myColor.white} />
       </TouchableOpacity>
       <View
         style={
           state
-            ? [styles.bar, { backgroundColor: myColor.orange }]
-            : [styles.bar, { backgroundColor: myColor.turquaz }]
+            ? [styles.middleContainer, { backgroundColor: myColor.orange }]
+            : [styles.middleContainer, { backgroundColor: myColor.turquaz }]
         }
       >
         <TouchableOpacity onPress={onPressHandlerTara}>
@@ -48,7 +48,7 @@ const NavigationBar = ({ navigaiton, state }) => {
         <TouchableOpacity onPress={onPressHandlerYaz}>
           <View
             style={
-              state
+              !state
                 ? [styles.buton, { backgroundColor: myColor.darkTurquaz }]
                 : styles.buton
             }
@@ -69,10 +69,20 @@ const NavigationBar = ({ navigaiton, state }) => {
 };
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     padding: 10,
+  },
+  menu: {
+    position: "absolute",
+    left: 15,
+
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
   },
   middleContainer: {
     justifyContent: "space-around",
@@ -84,13 +94,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 110,
     borderBottomRightRadius: 110,
     alignItems: "flex-start",
-    position: "absolute",
-    top: 30,
   },
   buton: {
     width: width / 7,
     height: width / 7,
-    borderRadius: dm / 15,
+    borderRadius: width / 15,
     justifyContent: "center",
     marginHorizontal: 8,
     alignItems: "center",
