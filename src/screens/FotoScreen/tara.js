@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import styles from "./styles";
 import NavigationBar from "../../components/navigationBar";
 import SpecialButton from "./components/buton";
-import { onButtonPress, onProcessImage, sendImageToPython } from "../../utils/imageFunctions";
+import {
+  onButtonPress,
+  onProcessImage,
+  sendImageToPython,
+} from "../../utils/imageFunctions";
 import FotografKaresi from "./components/fotoModal";
 
 export default function Tara({ navigation }) {
   const [response, setResponse] = useState(null);
   const [cropped, setCropped] = useState("");
   const [modal, setModal] = useState(true);
-  const [sendApi,setSendApi]=useState(false);
+  const [sendApi, setSendApi] = useState(false);
 
   const closeModal = () => {
     setModal(false);
@@ -22,8 +26,7 @@ export default function Tara({ navigation }) {
   };
 
   const handleProcessImage = () => {
-
-   sendImageToPython(response,setSendApi);
+    sendImageToPython(response, setSendApi, setModal, navigation);
   };
   return (
     <View style={styles.container}>
@@ -57,6 +60,7 @@ export default function Tara({ navigation }) {
           closeModal={closeModal}
           onProcessImage={handleProcessImage}
           modal={modal}
+          sendApi={sendApi}
         />
       )}
     </View>

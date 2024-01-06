@@ -5,12 +5,19 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React from "react";
 import width from "../../../constants/dimension";
 import myColor from "../../../constants/colors";
 
-const FotografKaresi = ({ modal, uri, closeModal, onProcessImage }) => {
+const FotografKaresi = ({
+  modal,
+  uri,
+  closeModal,
+  onProcessImage,
+  sendApi,
+}) => {
   return (
     <Modal
       animationType="slide"
@@ -28,23 +35,29 @@ const FotografKaresi = ({ modal, uri, closeModal, onProcessImage }) => {
           style={styles.image}
           source={{ uri: uri }}
         />
-        {/* BUtonu da değiştirecem  */}
-        <View style={styles.innerConatiner}>
-          <TouchableOpacity
-            onPress={() => {
-              closeModal();
-            }}
-          >
-            <Text style={styles.textGeri}> Geri</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              onProcessImage();
-            }}
-          >
-            <Text style={styles.textIsle}> Resmi Tara</Text>
-          </TouchableOpacity>
-        </View>
+        {sendApi ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={myColor.blackBack} />
+            <Text style={styles.loadingText}>Resim Çözümleniyor...</Text>
+          </View>
+        ) : (
+          <View style={styles.innerConatiner}>
+            <TouchableOpacity
+              onPress={() => {
+                closeModal();
+              }}
+            >
+              <Text style={styles.textGeri}> Geri</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                onProcessImage();
+              }}
+            >
+              <Text style={styles.textIsle}> Resmi Tara</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </Modal>
   );
@@ -88,6 +101,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 15,
     fontWeight: "700",
+    color: myColor.blackBack,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: "600",
     color: myColor.blackBack,
   },
 });
