@@ -3,12 +3,9 @@ import React, { useState } from "react";
 import styles from "./styles";
 import NavigationBar from "../../components/navigationBar";
 import SpecialButton from "./components/buton";
-import {
-  onButtonPress,
-  onProcessImage,
-  sendImageToPython,
-} from "../../utils/imageFunctions";
+import { onButtonPress } from "../../utils/imageFunctions";
 import FotografKaresi from "./components/fotoModal";
+import { ocrApi } from "../../api/ocrApi";
 
 export default function Tara({ navigation }) {
   const [response, setResponse] = useState(null);
@@ -26,7 +23,7 @@ export default function Tara({ navigation }) {
   };
 
   const handleProcessImage = () => {
-    sendImageToPython(response, setSendApi, setModal, navigation);
+    ocrApi(response, setSendApi, setModal, navigation);
   };
   return (
     <View style={styles.container}>

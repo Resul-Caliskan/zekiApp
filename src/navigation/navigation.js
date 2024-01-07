@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Tara from "../screens/FotoScreen/tara";
 import Yazma from "../screens/KeyBoardScreen/yazma";
 import Cikti from "../screens/RecognizedScreen/recognized";
+import Cozum from "../screens/SolveScreen/solve";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -95,6 +96,7 @@ export default function NavigationComponent() {
           <Stack.Screen name="Tara" component={Tara} />
           <Stack.Screen name="Cikti" component={Cikti} />
           <Stack.Screen name="Yazma" component={Yazma} />
+          <Stack.Screen name="Cozum" component={Cozum} />
         </Stack.Group>
         {/* <Stack.Group>
           <Stack.Screen name="Home" component={HomeStack} />

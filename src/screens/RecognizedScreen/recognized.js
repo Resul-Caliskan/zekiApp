@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import myColor from "../../constants/colors";
 
-const Cikti = ({ route }) => {
+const Cikti = ({ navigation, route }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputText, setInputText] = useState(route.params.text);
+  const [question, setQuestion] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -19,13 +20,16 @@ const Cikti = ({ route }) => {
         <Text
           style={{ color: myColor.lightGreen, fontSize: 14, marginLeft: 20 }}
         >
-          Düzenleme modu açık
+          Metin Düzenleme modu açık metne tıklayın
         </Text>
       ) : (
-        <Text></Text>
+        <Text
+          style={{ color: myColor.lavanta, fontSize: 14, marginLeft: 20 }}
+        ></Text>
       )}
       <ScrollView>
         <View style={styles.question}>
+          <Text style={{ color: myColor.orange, fontSize: 14 }}>Metin:</Text>
           {isEditing ? (
             <TextInput
               style={styles.text}
@@ -37,6 +41,16 @@ const Cikti = ({ route }) => {
           ) : (
             <Text style={styles.text}>{inputText}</Text>
           )}
+        </View>
+        <View style={[styles.question, { margin: 10 }]}>
+          <Text style={{ color: myColor.orange, fontSize: 14 }}>Sorgu:</Text>
+          <TextInput
+            style={[styles.text, { color: myColor.lightGreen }]}
+            onChangeText={setQuestion}
+            value={question}
+            placeholder="Çöz veya Özetle gibi Zekiye ne yapacağını yazın..."
+            placeholderTextColor={myColor.blackBack}
+          />
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
@@ -54,23 +68,27 @@ const Cikti = ({ route }) => {
                   : [styles.buttonText]
               }
             >
-              Düzenle
+              Metni Düzenle
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={isEditing}
-            onPress={() => console.log("Zeki'ye sor")}
+            disabled={question == null || isEditing ? true : false}
+            onPress={() => {
+              const soru = inputText + " " + question;
+              // bilerek replace yaptım gerii gelip gelip sorgu gönderilmesin
+              navigation.replace("Cozum", { soru: soru });
+            }}
             style={
-              isEditing
+              question == null || isEditing
                 ? [styles.button, { borderColor: myColor.red }]
-                : [styles.button]
+                : [styles.button,{borderColor:myColor.lightGreen}]
             }
           >
             <Text
               style={
-                isEditing
+                question == null || isEditing
                   ? [styles.buttonText, { color: myColor.red }]
-                  : [styles.buttonText]
+                  : [styles.buttonText,{color:myColor.lightGreen}]
               }
             >
               Zeki'ye Sor
